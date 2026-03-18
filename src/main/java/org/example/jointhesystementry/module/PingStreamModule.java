@@ -12,8 +12,10 @@ import java.util.stream.Stream;
 
 public class PingStreamModule {
    static final String channelName = "joinTheSystem";
-   static final String twitchKey = "kimne78kx3ncx6brgo4mv6wki5h1ko";
-   static final String jsonIWant = "[{\"operationName\":\"ChannelShell\",\"variables\":{\"login\":\"" + channelName + "\"},\"extensions\":{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"0bceec4391f0d59f3f2e1f9c52b2a391c57f5cfb7be79b2bcd183cbfa1f8f3de\"}}}]";
+   static final String twitchKeyPublic = "a11xo6tbj31ak6gezlmb4zmbhn06nh";
+   static final String twitchKeyPrivate = "0quia8dngi8npiy8rpicdofeg8pl9r";
+    static final String jsonIWant = "[{\"operationName\":\"PlaybackAccessToken\",\"variables\":{\"isLive\":true,\"login\":\""
+            + channelName + "\",\"playerType\":\"site\"},\"extensions\":{\"persistedQuery\":{\"version\":1,\"sha256Hash\":\"0828119ded8c1340f41a98b72d86d02c3ed44c5d21b8c702d5f574ba9de3f2e6\"}}}]";
 
     private PingStreamModule(){}
 
@@ -23,7 +25,8 @@ public class PingStreamModule {
             URL url = new URL("https://gql.twitch.tv/gql");
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("POST");
-            urlConnection.setRequestProperty("Client-ID",twitchKey);
+            urlConnection.setRequestProperty("Client-ID",twitchKeyPublic);
+            urlConnection.setRequestProperty("Authorization", "Bearer " + twitchKeyPrivate);
             urlConnection.setRequestProperty("Content-Type","application/json");
             urlConnection.setDoOutput(true);
 
