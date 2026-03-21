@@ -9,7 +9,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class EnterStream {
-
+    static boolean isEntryConfirmed = false;
+    static boolean isStreamOn = false;
 
     public static void enterStream(String currentStatus){
         if (!currentStatus.equals("Stream is offline")){
@@ -25,6 +26,7 @@ public class EnterStream {
 
     }
 
+
     public static void enterStreamRadioVersion(){
         DelayThread delayThread = new DelayThread();
         delayThread.run();
@@ -37,11 +39,13 @@ public class EnterStream {
         public void run() {
             super.run();
             try {
-                for (int i=0;i<4;i++) {
-                    sleep(2000);
-                    Desktop.getDesktop().browse(new URI("https://www.twitch.tv/jointhesystemm"));
-                }
-            } catch (InterruptedException | URISyntaxException e) {
+                    if (!isEntryConfirmed && isStreamOn) {
+                        Desktop.getDesktop().browse(new URI("https://www.twitch.tv/jointhesystemm"));
+                        isEntryConfirmed = true;
+                    }
+
+
+            } catch (URISyntaxException e) {
                 throw new RuntimeException(e);
             } catch (IOException e) {
                 throw new RuntimeException(e);
