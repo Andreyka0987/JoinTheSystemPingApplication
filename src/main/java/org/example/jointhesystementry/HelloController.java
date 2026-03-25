@@ -18,7 +18,9 @@ public class HelloController {
     public RadioButton pingRadioButton;
 
     public void pingStream(ActionEvent event) {
-        PingStreamModule.parseInfo();
+        boolean isAlive = PingStreamModule.parseInfo();
+        if (isAlive){streamStatus.setText("Stream is online");}
+        else {streamStatus.setText("Stream is offline");}
     }
 
 
