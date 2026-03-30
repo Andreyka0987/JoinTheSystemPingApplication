@@ -21,7 +21,7 @@ public class PingStreamModule {
     private PingStreamModule(){}
 
 
-    public static boolean parseInfo(){
+    public static boolean checkInfo(){
         ArrayList<String> arrayList;
         if (forTheFirstTime){
             arrayList = returnBearerInfo();

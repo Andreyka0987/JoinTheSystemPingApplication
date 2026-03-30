@@ -16,7 +16,7 @@
          <children>
             <Button fx:id="pingButton" layoutX="14.0" layoutY="221.0" mnemonicParsing="false" onAction="#pingStream" prefHeight="37.0" prefWidth="94.0" text="Ping" />
             <Button fx:id="enterStreamButton" layoutX="14.0" layoutY="174.0" mnemonicParsing="false" onAction="#enterStream" prefHeight="37.0" prefWidth="94.0" text="Enter stream" />
-            <Label fx:id="streamStatus" layoutX="161.0" layoutY="22.0" prefHeight="17.0" prefWidth="94.0" text="Stream is offline1" />
+            <Label fx:id="streamStatus" layoutX="161.0" layoutY="22.0" prefHeight="17.0" prefWidth="94.0" text="Stream is offline" />
             <RadioButton fx:id="pingRadioButton" onAction="#isStreamCheckerOn" layoutX="314.0" layoutY="231.0" mnemonicParsing="false" text="PingStream" />
          </children>
       </AnchorPane>

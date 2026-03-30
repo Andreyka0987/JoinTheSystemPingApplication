@@ -16,27 +16,34 @@ public class HelloController {
     public Button enterStreamButton;
     public Label streamStatus;
     public RadioButton pingRadioButton;
-
+    int a = 0;
     public void pingStream(ActionEvent event) {
-        boolean isAlive = PingStreamModule.parseInfo();
-        if (isAlive){streamStatus.setText("Stream is online");}
-        else {streamStatus.setText("Stream is offline");}
+        if (!PingStreamModule.checkInfo()){
+            streamStatus.setText("Stream is online");
+        }
+        else {
+            streamStatus.setText("Stream is offline");
+        }
     }
 
 
 
     public void enterStream(ActionEvent event) {
-        EnterStream.enterStream(streamStatus.getText());
+        EnterStream.enterStream(streamStatus.getText(), false);
     }
 
 
     public void isStreamCheckerOn(ActionEvent event) {
         if (pingRadioButton.isSelected() && !streamStatus.getText().equals("Stream is offline")){
-            EnterStream.enterStreamRadioVersion();
+            EnterStream.enterStream(streamStatus.getText(),true);
+            EnterStream.isRadioIsChecked = true;
         }
-        else{
-            System.out.println("Didn't entry the stream");
+        if (!pingRadioButton.isSelected() && !streamStatus.getText().equals("Stream is offline")){
+            EnterStream.isRadioIsChecked = false;
         }
 
     }
+
+
+
 }
