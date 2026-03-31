@@ -8,6 +8,8 @@ import javafx.scene.control.RadioButton;
 import org.example.jointhesystementry.module.EnterStream;
 import org.example.jointhesystementry.module.PingStreamModule;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -19,6 +21,7 @@ public class HelloController {
     int a = 0;
     public void pingStream(ActionEvent event) {
         if (!PingStreamModule.checkInfo()){
+            // don't forget to delete ! mark
             streamStatus.setText("Stream is online");
         }
         else {
@@ -29,17 +32,26 @@ public class HelloController {
 
 
     public void enterStream(ActionEvent event) {
-        EnterStream.enterStream(streamStatus.getText(), false);
+            EnterStream.enterStreamButton(streamStatus.getText());
     }
 
 
     public void isStreamCheckerOn(ActionEvent event) {
-        if (pingRadioButton.isSelected() && !streamStatus.getText().equals("Stream is offline")){
-            EnterStream.enterStream(streamStatus.getText(),true);
+        if (pingRadioButton.isSelected()){
             EnterStream.isRadioIsChecked = true;
+
+            try {
+                EnterStream.enterStreamRadioButton(streamStatus.getText());
+            }catch (URISyntaxException e) {throw new RuntimeException(e);}catch (IOException e) {throw new RuntimeException(e);}
+
         }
-        if (!pingRadioButton.isSelected() && !streamStatus.getText().equals("Stream is offline")){
+        if (!pingRadioButton.isSelected()){
             EnterStream.isRadioIsChecked = false;
+
+            try {
+                EnterStream.enterStreamRadioButton(streamStatus.getText());
+            }catch (URISyntaxException e) {throw new RuntimeException(e);}catch (IOException e) {throw new RuntimeException(e);}
+
         }
 
     }
