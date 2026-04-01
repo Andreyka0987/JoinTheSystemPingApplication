@@ -18,7 +18,10 @@ public class HelloController {
     public Button enterStreamButton;
     public Label streamStatus;
     public RadioButton pingRadioButton;
+    public Label enterStreamStatusLabel;
+
     int a = 0;
+    
     public void pingStream(ActionEvent event) {
         if (!PingStreamModule.checkInfo()){
             // don't forget to delete ! mark

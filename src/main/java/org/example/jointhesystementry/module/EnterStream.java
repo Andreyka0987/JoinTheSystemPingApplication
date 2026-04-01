@@ -1,5 +1,6 @@
 package org.example.jointhesystementry.module;
 
+import javafx.application.Platform;
 import org.example.jointhesystementry.HelloController;
 
 import java.awt.*;
@@ -17,7 +18,7 @@ public class EnterStream {
     private static HelloController controller;
     private static boolean isCheckedIn = false;
     private static Timer timer = new Timer();
-
+    private static Timer statusTimer = new Timer();
 
 
 
@@ -33,6 +34,20 @@ public class EnterStream {
             } catch (URISyntaxException e) {
                 throw new RuntimeException(e);
             }
+        }
+        else {
+            controller.enterStreamStatusLabel.setText("Stream Is currently offline!");
+
+
+           timer.schedule(new TimerTask() {
+               @Override
+               public void run() {
+                   Platform.runLater(new Runnable() {  // With this class i can refer to the FX main Thread
+                       @Override
+                       public void run() {
+                           controller.enterStreamStatusLabel.setText("");
+                       }});
+               }},5000);
         }
     }
 
