@@ -63,6 +63,11 @@ public class EnterStream {
                 @Override
                 public void run() {
                     if (isRadioIsChecked) {
+
+                        if (PingStreamModule.checkInfo()){isStreamOnline = true;}
+                        else{isStreamOnline = false;}
+
+
                         System.out.println("Test");
 
                         if (isStreamOnline && !isCheckedIn) {
@@ -73,29 +78,26 @@ public class EnterStream {
                             }catch (IOException e) {throw new RuntimeException(e);}catch (URISyntaxException e) {throw new RuntimeException(e);}
 
 
-                            controller.streamStatus.setText("Stream is online");
-                        } else if (!isStreamOnline && isCheckedIn) {
-                            isCheckedIn = true;
 
-                            controller.streamStatus.setText("Stream is offline");
+                            Platform.runLater(new Runnable() {
+                                @Override
+                                public void run() {controller.streamStatus.setText("Stream is online");}});
+                        } else if (!isStreamOnline) {
+                            isCheckedIn = false;
+                            Platform.runLater(new Runnable() {
+                                @Override
+                                public void run() {controller.streamStatus.setText("Stream is offline");}});
                         }
 
-                            if (controller.streamStatus.getText().equals("Stream is online")){
-                                isStreamOnline = true;
-                            }
-                            else {
-                                isStreamOnline = false;
-                            }
-
-//                        if (!isStreamOnline)isStreamOnline = true;
-//                        if (isStreamOnline)isStreamOnline = false;
-
+                    }
+                    else{
+                        isCheckedIn = false;
                     }
 
 
 
                 }
-            }, 2000,2000);
+            }, 100,100);
 
 
     }

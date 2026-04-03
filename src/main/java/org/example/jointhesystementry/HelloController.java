@@ -20,16 +20,19 @@ public class HelloController {
     public RadioButton pingRadioButton;
     public Label enterStreamStatusLabel;
 
-    int a = 0;
+
     
     public void pingStream(ActionEvent event) {
+
+
         if (!PingStreamModule.checkInfo()){
             // don't forget to delete ! mark
             streamStatus.setText("Stream is online");
         }
-        else {
+        else  {
             streamStatus.setText("Stream is offline");
         }
+
     }
 
 
