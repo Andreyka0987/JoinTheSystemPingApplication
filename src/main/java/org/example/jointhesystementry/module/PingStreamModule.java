@@ -22,6 +22,8 @@ public class PingStreamModule {
 
 
     public static boolean checkInfo(){
+
+
         ArrayList<String> arrayList;
         if (forTheFirstTime){
             arrayList = returnBearerInfo();

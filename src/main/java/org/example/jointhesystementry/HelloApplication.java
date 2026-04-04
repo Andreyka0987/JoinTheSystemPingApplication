@@ -8,6 +8,7 @@ import org.example.jointhesystementry.module.EnterStream;
 import org.example.jointhesystementry.module.PingStreamModule;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -28,6 +29,8 @@ public class HelloApplication extends Application {
         helloController = fxmlLoader.getController();
         EnterStream.setController(helloController);
         autoStartup();
+        EnterStream.setIsRadioIsChecked();
+        checkIfEnterStream();
     }
 
     public static void main(String[] args) {
@@ -40,7 +43,13 @@ public class HelloApplication extends Application {
         else {helloController.streamStatus.setText("Stream is offline");}
     }
 
-
+    private void checkIfEnterStream(){
+        if (EnterStream.isRadioIsChecked){
+            try {
+                EnterStream.enterStreamRadioButton();
+            } catch (URISyntaxException e) {throw new RuntimeException(e);}catch (IOException e) {throw new RuntimeException(e);}
+        }
+    }
 
 
 

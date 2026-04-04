@@ -4,7 +4,7 @@ import javafx.application.Platform;
 import org.example.jointhesystementry.HelloController;
 
 import java.awt.*;
-import java.io.IOException;
+import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Timer;
@@ -52,9 +52,7 @@ public class EnterStream {
     }
 
 
-    public static void enterStreamRadioButton(String currentStatus) throws URISyntaxException, IOException {
-
-        if (currentStatus.equals("Stream is offline")){isStreamOnline = false;} else{isStreamOnline = true;}
+    public static void enterStreamRadioButton() throws URISyntaxException, IOException {
 
 
             isAlreadyEntered = true;
@@ -62,6 +60,8 @@ public class EnterStream {
 
                 @Override
                 public void run() {
+                    setState();
+
                     if (isRadioIsChecked) {
 
                         if (PingStreamModule.checkInfo()){isStreamOnline = true;}
@@ -76,8 +76,6 @@ public class EnterStream {
                             try {
                                 Desktop.getDesktop().browse(new URI("https://www.twitch.tv/jointhesystemm"));
                             }catch (IOException e) {throw new RuntimeException(e);}catch (URISyntaxException e) {throw new RuntimeException(e);}
-
-
 
                             Platform.runLater(new Runnable() {
                                 @Override
@@ -99,6 +97,52 @@ public class EnterStream {
                 }
             }, 100,100);
 
+
+    }
+
+
+    private static void setState(){
+        File file = new File("src/main/resources/radio.txt");
+
+
+            try {
+                BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file));
+                if (isRadioIsChecked){
+                    bufferedWriter.write("true");
+                }else {
+                    bufferedWriter.write("false");
+                }
+                bufferedWriter.flush();
+                bufferedWriter.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+
+    }
+
+
+
+    public static void setIsRadioIsChecked(){
+        File file = new File("src/main/resources/radio.txt");
+
+        if (file.exists()){
+            try {
+                BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+                String s = bufferedReader.readLine();
+                if (s.equals("true")){
+                    isRadioIsChecked = true;
+                    controller.pingRadioButton.setSelected(true);
+                } else {
+                    isRadioIsChecked = false;
+                    controller.pingRadioButton.setSelected(false);
+                }
+
+
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
 
     }
 

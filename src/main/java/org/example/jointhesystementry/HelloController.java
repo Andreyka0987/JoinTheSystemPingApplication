@@ -25,7 +25,7 @@ public class HelloController {
     public void pingStream(ActionEvent event) {
 
 
-        if (!PingStreamModule.checkInfo()){
+        if (PingStreamModule.checkInfo()){
             // don't forget to delete ! mark
             streamStatus.setText("Stream is online");
         }
@@ -47,7 +47,7 @@ public class HelloController {
             EnterStream.isRadioIsChecked = true;
 
             try {
-                EnterStream.enterStreamRadioButton(streamStatus.getText());
+                EnterStream.enterStreamRadioButton();
             }catch (URISyntaxException e) {throw new RuntimeException(e);}catch (IOException e) {throw new RuntimeException(e);}
 
         }
@@ -55,7 +55,7 @@ public class HelloController {
             EnterStream.isRadioIsChecked = false;
 
             try {
-                EnterStream.enterStreamRadioButton(streamStatus.getText());
+                EnterStream.enterStreamRadioButton();
             }catch (URISyntaxException e) {throw new RuntimeException(e);}catch (IOException e) {throw new RuntimeException(e);}
 
         }
