@@ -19,6 +19,7 @@
             <Label fx:id="streamStatus" layoutX="161.0" layoutY="22.0" prefHeight="17.0" prefWidth="94.0" text="Stream is offline" />
             <RadioButton fx:id="pingRadioButton" layoutX="314.0" layoutY="231.0" mnemonicParsing="false" onAction="#isStreamCheckerOn" text="PingStream" />
             <Label fx:id="enterStreamStatusLabel" layoutX="135.0" layoutY="77.0" prefHeight="17.0" prefWidth="146.0" />
+            <RadioButton fx:id="isYouTubeRadio" layoutX="314.0" layoutY="193.0" mnemonicParsing="false" text="YouTube " onAction="#isYoTubeOn" />
          </children>
       </AnchorPane>
    </children>

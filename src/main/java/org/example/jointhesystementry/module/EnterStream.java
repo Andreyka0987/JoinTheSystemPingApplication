@@ -18,7 +18,9 @@ public class EnterStream {
     private static HelloController controller;
     private static boolean isCheckedIn = false;
     private static Timer timer = new Timer();
-    private static Timer statusTimer = new Timer();
+    public static boolean isYouTubeRadioChecked = false;
+    private static final String TWITCH_URI = "https://www.twitch.tv/jointhesystemm";
+    private static final String YOUTUBE_URI = "www.youtube.com/@JoinTheSystemm/live";
 
 
 
@@ -27,13 +29,20 @@ public class EnterStream {
         if (currentStatus.equals("Stream is offline")){isStreamOnline = false;} else{isStreamOnline = true;}
 
         if (isStreamOnline){
-            try {
-                Desktop.getDesktop().browse(new URI("https://www.twitch.tv/jointhesystemm"));
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            } catch (URISyntaxException e) {
-                throw new RuntimeException(e);
+            if (!isYouTubeRadioChecked) {
+                try {
+                    Desktop.getDesktop().browse(new URI(TWITCH_URI));
+                } catch (IOException e) {throw new RuntimeException(e);
+                } catch (URISyntaxException e) {throw new RuntimeException(e);}
             }
+            if (isYouTubeRadioChecked){
+                try {
+                    Desktop.getDesktop().browse(new URI(YOUTUBE_URI));
+                } catch (IOException e) {throw new RuntimeException(e);
+                } catch (URISyntaxException e) {throw new RuntimeException(e);}
+            }
+
+
         }
         else {
             controller.enterStreamStatusLabel.setText("Stream Is currently offline!");
@@ -68,14 +77,25 @@ public class EnterStream {
                         else{isStreamOnline = false;}
 
 
-                        System.out.println("Test");
 
                         if (isStreamOnline && !isCheckedIn) {
                             isCheckedIn = true;
 
-                            try {
-                                Desktop.getDesktop().browse(new URI("https://www.twitch.tv/jointhesystemm"));
-                            }catch (IOException e) {throw new RuntimeException(e);}catch (URISyntaxException e) {throw new RuntimeException(e);}
+                            if (!isYouTubeRadioChecked) {
+                                try {
+                                    Desktop.getDesktop().browse(new URI(TWITCH_URI));
+                                } catch (IOException e) {
+                                    throw new RuntimeException(e);
+                                } catch (URISyntaxException e) {
+                                    throw new RuntimeException(e);
+                                }
+                            }
+                            else {
+                                try {
+                                    Desktop.getDesktop().browse(new URI(YOUTUBE_URI));
+                                } catch (IOException e) {throw new RuntimeException(e);
+                                } catch (URISyntaxException e) {throw new RuntimeException(e);}
+                            }
 
                             Platform.runLater(new Runnable() {
                                 @Override
@@ -112,6 +132,13 @@ public class EnterStream {
                 }else {
                     bufferedWriter.write("false");
                 }
+                bufferedWriter.newLine();
+                if (isYouTubeRadioChecked){
+                    bufferedWriter.write("true1");
+                }else {
+                    bufferedWriter.write("false");
+                }
+
                 bufferedWriter.flush();
                 bufferedWriter.close();
             } catch (IOException e) {
@@ -129,13 +156,25 @@ public class EnterStream {
         if (file.exists()){
             try {
                 BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
-                String s = bufferedReader.readLine();
-                if (s.equals("true")){
+                String s1 = bufferedReader.readLine();
+                if (s1.equals("true")){
                     isRadioIsChecked = true;
                     controller.pingRadioButton.setSelected(true);
                 } else {
                     isRadioIsChecked = false;
                     controller.pingRadioButton.setSelected(false);
+                }
+
+
+                String s2 = bufferedReader.readLine();
+                System.out.println(s2);
+
+                if (s2.equals("true1")){
+                    isYouTubeRadioChecked = true;
+                    controller.isYouTubeRadio.setSelected(true);
+                }else {
+                    isYouTubeRadioChecked = false;
+                    controller.isYouTubeRadio.setSelected(false);
                 }
 
 

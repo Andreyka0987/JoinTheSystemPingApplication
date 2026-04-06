@@ -19,9 +19,9 @@ public class HelloController {
     public Label streamStatus;
     public RadioButton pingRadioButton;
     public Label enterStreamStatusLabel;
+    public RadioButton isYouTubeRadio;
 
 
-    
     public void pingStream(ActionEvent event) {
 
 
@@ -62,6 +62,12 @@ public class HelloController {
 
     }
 
-
-
+    public void isYoTubeOn(ActionEvent event) {
+        if (isYouTubeRadio.isSelected()){
+            EnterStream.isYouTubeRadioChecked = true;
+        }
+        else {
+            EnterStream.isYouTubeRadioChecked = false;
+        }
+    }
 }
