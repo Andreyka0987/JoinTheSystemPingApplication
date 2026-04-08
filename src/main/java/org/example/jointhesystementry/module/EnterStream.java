@@ -134,7 +134,7 @@ public class EnterStream {
                 }
                 bufferedWriter.newLine();
                 if (isYouTubeRadioChecked){
-                    bufferedWriter.write("true1");
+                    bufferedWriter.write("true");
                 }else {
                     bufferedWriter.write("false");
                 }
@@ -169,7 +169,7 @@ public class EnterStream {
                 String s2 = bufferedReader.readLine();
                 System.out.println(s2);
 
-                if (s2.equals("true1")){
+                if (s2.equals("true")){
                     isYouTubeRadioChecked = true;
                     controller.isYouTubeRadio.setSelected(true);
                 }else {

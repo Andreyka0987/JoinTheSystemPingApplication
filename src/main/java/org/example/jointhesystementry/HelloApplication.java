@@ -1,16 +1,19 @@
 package org.example.jointhesystementry;
 
+import com.dustinredmond.fxtrayicon.FXTrayIcon;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.example.jointhesystementry.module.EnterStream;
 import org.example.jointhesystementry.module.PingStreamModule;
 
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class HelloApplication extends Application {
     HelloController helloController;
@@ -22,9 +25,25 @@ public class HelloApplication extends Application {
 
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 455, 312);
+
+
+
+            FXTrayIcon fxTrayIcon = new FXTrayIcon(stage,getClass().getResource("/trayicon.gif"));
+            fxTrayIcon.addExitItem("Exit", new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    Runtime.getRuntime().exit(0);}});
+            fxTrayIcon.show();
+
+
+
         stage.setTitle("StreamPinger");
         stage.setScene(scene);
         stage.show();
+
+
+
+
 
         helloController = fxmlLoader.getController();
         EnterStream.setController(helloController);
